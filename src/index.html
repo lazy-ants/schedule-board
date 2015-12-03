@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Schedule Board</title>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="main.css">
+
+  <script type="text/javascript" src="bower_components/moment/moment.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+
+
+</head>
+<body ng-app="app">
+  <div ng-controller="ScheduleBoardCtrl" class="container-fluid">
+    <div class="col-md-3 col-md-offset-1">
+      <calendar selected="day">
+      </calendar>
+    </div>
+    <div board class="col-md-7">
+      <div class="page-header">
+        <h1>Schedule Board<br><small>{{chosenDate}}</small></h1>
+      </div>
+      <div>
+        <div id="form-div" class="well">
+            <div class="row">
+              <form id="adding-form" name="adding-form" class="form-inline" role='form'>
+                <div class="col-md-3 navbar-btn">
+                    <select name="time" id="newTime" ng-model="newRecord.time" class="form-control adding-input input-sm" required>
+                      <option value="">--- Please select ---</option>
+                      <option ng-if="record.title === '-'" ng-repeat="record in records[chosenDate]" value="{{record.time}}">{{record.time}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6 navbar-btn">
+                    <input name="fullname" type="text" class="form-control adding-input input-sm" id="newFullName" placeholder="Input your Full Name" required>
+                </div>
+                <div class="col-md-3 navbar-btn">
+                  <button type="button" class="btn btn-primary btn-sm col-md-12" ng-click="console()">Add</button>
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover table-condensed table-striped table-bordered">
+              <thead class="panel-default">
+                <tr>
+                  <th class="col-md-1 use-center">
+                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> №
+                  </th>
+                  <th class="col-md-4">
+                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Time
+                  </th>
+                  <th class="col-md-5">
+                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span>  Title
+                  </th>
+                  <th class="col-md-2 use-center" colspan="2">
+                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr ng-if="record != editingRecord && record.title !== '-'" ng-repeat-start="record in records[chosenDate]" id="row{{$index + 1}}">
+                  <td class="col-md-1 use-center">{{$index + 1}}</td>
+                  <td class="col-md-4">{{record.time}}</td>
+                  <td class="col-md-5">{{record.title}}</td>
+                  <td class="col-md-1 use-center">
+                      <span class="glyphicon glyphicon-pencil" role="button" ng-click="showEditForm(record)"></span>
+                  </td>
+                  <td class="col-md-1 use-center">
+                      <span class="glyphicon glyphicon-trash" role="button" ng-click="activateDeletingRecord($event, record)"></span>
+                  </td>
+                </tr>
+
+                <tr ng-if="record != editingRecord && record.title === '-'" id="row{{$index + 1}}">
+                  <td class="col-md-1 use-center">{{$index + 1}}</td>
+                  <td class="col-md-4">{{record.time}}</td>
+                  <td class="col-md-5" colspan="3">{{record.title}}</td>
+                </tr>
+
+                <tr ng-if="record == editingRecord" ng-repeat-end="">
+                  <td>{{$index + 1}}</td>
+                  <td class="col-md-4"><input class="form-control input-sm width-max navbar-btn" ng-model="editedEntity.new_faculty_name"></td>
+                  <td class="col-md-6"><input class="form-control input-sm width-max navbar-btn" ng-model="editedEntity.new_faculty_description"></td>
+                  <td class="col-md-2 use-center">
+                    <button class="btn btn-success btn-sm navbar-btn" ng-click="updateRecord(record)">
+                      <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                    <button class="btn btn-warning btn-sm navbar-btn col-md-offset-1" ng-click="showEditForm(record)">
+                      <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="delete-modal">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Видалити запис?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Скасувати</button>
+            <button id="confirmRemove" type="button" class="btn btn-danger" ng-click="removeRecord()" data-dismiss="modal">Видалити</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
