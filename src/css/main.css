@@ -14,9 +14,25 @@
 .add-button-margin {
   margin: 10px 15px 0px 0px;
 }
-.col-offset-1 {
-  margin-left: 10px;
+
+.edit-icon{
+  color:#5cb85c !important;
 }
+
+.delete-icon{
+  color:#d9534f !important;
+}
+
+.save-icon{
+  color:#337ab7 !important;
+}
+
+.cancel-icon{
+  color:#f0ad4e !important;
+}
+
+
+
 input[type=text]::-webkit-inner-spin-button,
 input[type=text]::-webkit-outer-spin-button {
   -webkit-appearance: none;

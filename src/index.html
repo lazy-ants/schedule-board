@@ -5,11 +5,19 @@
   <meta charset="UTF-8">
 
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="css/main.css">
 
   <script type="text/javascript" src="bower_components/moment/moment.js"></script>
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-  <script type="text/javascript" src="app.js"></script>
+
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/calendarDrct.js"></script>
+  <script type="text/javascript" src="js/boardDrct.js"></script>
+  <script type="text/javascript" src="js/addRecordDrct.js"></script>
+  <script type="text/javascript" src="js/editRecordDrct.js"></script>
+
+
 
 
 </head>
@@ -23,6 +31,7 @@
       <div class="page-header">
         <h1>Schedule Board<br><small>{{chosenDate}}</small></h1>
       </div>
+      <add-record></add-record>
       <div>
         <div id="form-div" class="well">
             <div class="row">
@@ -30,21 +39,22 @@
                 <div class="col-md-3 navbar-btn">
                     <select name="time" id="newTime" ng-model="newRecord.time" class="form-control adding-input input-sm" required>
                       <option value="">--- Please select ---</option>
-                      <option ng-if="record.title === '-'" ng-repeat="record in records[chosenDate]" value="{{record.time}}">{{record.time}}</option>
+                      <option value="08:00 - 09:00">08:00 - 09:00</option>
+                      <option ng-if="record.title === '-'" ng-repeat="record in days[chosenDate]" value="{{record.time}}">{{record.time}}</option>
                     </select>
                 </div>
                 <div class="col-md-6 navbar-btn">
-                    <input name="fullname" type="text" class="form-control adding-input input-sm" id="newFullName" placeholder="Input your Full Name" required>
+                    <input name="fullname" type="text" class="form-control adding-input input-sm" id="newFullName" placeholder="Input your Full Name" ng-model="newRecord.title" required>
                 </div>
                 <div class="col-md-3 navbar-btn">
-                  <button type="button" class="btn btn-primary btn-sm col-md-12" ng-click="console()">Add</button>
+                  <button type="button" class="btn btn-primary btn-sm col-md-12" ng-click="addRecord()">Add</button>
                 </div>
               </form>
             </div>
         </div>
         <div class="table-responsive">
           <table class="table table-hover table-condensed table-striped table-bordered">
-              <thead class="panel-default">
+              <thead>
                 <tr>
                   <th class="col-md-1 use-center">
                     <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> №
@@ -62,14 +72,14 @@
               </thead>
               <tbody>
 
-                <tr ng-if="record != editingRecord && record.title !== '-'" ng-repeat-start="record in records[chosenDate]" id="row{{$index + 1}}">
+                <tr ng-if="record != editingRecord && record.title !== '-'" ng-repeat-start="record in days[chosenDate]" id="row{{$index + 1}}">
                   <td class="col-md-1 use-center">{{$index + 1}}</td>
                   <td class="col-md-4">{{record.time}}</td>
                   <td class="col-md-5">{{record.title}}</td>
-                  <td class="col-md-1 use-center">
+                  <td class="col-md-1 use-center edit-icon">
                       <span class="glyphicon glyphicon-pencil" role="button" ng-click="showEditForm(record)"></span>
                   </td>
-                  <td class="col-md-1 use-center">
+                  <td class="col-md-1 use-center delete-icon">
                       <span class="glyphicon glyphicon-trash" role="button" ng-click="activateDeletingRecord($event, record)"></span>
                   </td>
                 </tr>
@@ -77,20 +87,18 @@
                 <tr ng-if="record != editingRecord && record.title === '-'" id="row{{$index + 1}}">
                   <td class="col-md-1 use-center">{{$index + 1}}</td>
                   <td class="col-md-4">{{record.time}}</td>
-                  <td class="col-md-5" colspan="3">{{record.title}}</td>
+                  <td class="col-md-7" colspan="3">{{record.title}}</td>
                 </tr>
 
-                <tr ng-if="record == editingRecord" ng-repeat-end="">
-                  <td>{{$index + 1}}</td>
-                  <td class="col-md-4"><input class="form-control input-sm width-max navbar-btn" ng-model="editedEntity.new_faculty_name"></td>
-                  <td class="col-md-6"><input class="form-control input-sm width-max navbar-btn" ng-model="editedEntity.new_faculty_description"></td>
-                  <td class="col-md-2 use-center">
-                    <button class="btn btn-success btn-sm navbar-btn" ng-click="updateRecord(record)">
-                      <span class="glyphicon glyphicon-ok"></span>
-                    </button>
-                    <button class="btn btn-warning btn-sm navbar-btn col-md-offset-1" ng-click="showEditForm(record)">
-                      <span class="glyphicon glyphicon-remove"></span>
-                    </button>
+                <tr ng-if="record == editingRecord && record.title !== '-'" ng-repeat-end="">
+                  <td class="col-md-1 use-center">{{$index + 1}}</td>
+                  <td class="col-md-4"><input class="form-control input-sm width-max" ng-model="record.time"></td>
+                  <td class="col-md-5"><input class="form-control input-sm width-max" ng-model="record.title"></td>
+                  <td class="col-md-1 use-center save-icon">
+                      <span class="glyphicon glyphicon-ok" ng-click="updateRecord(record)"></span>
+                  </td>
+                  <td class="col-md-1 use-center cancel-icon">
+                      <span class="glyphicon glyphicon-remove" ng-click="showEditForm(record)"></span>
                   </td>
                 </tr>
               </tbody>
