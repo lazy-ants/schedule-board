@@ -7,8 +7,11 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/main.css">
 
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="bower_components/moment/moment.js"></script>
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+
 
   <script type="text/javascript" src="js/app.js"></script>
   <script type="text/javascript" src="js/config.js"></script>
@@ -16,6 +19,7 @@
   <script type="text/javascript" src="js/boardDrct.js"></script>
   <script type="text/javascript" src="js/addRecordDrct.js"></script>
   <script type="text/javascript" src="js/editRecordDrct.js"></script>
+  <script type="text/javascript" src="js/removeRecordDrct.js"></script>
 
 
 
@@ -32,19 +36,21 @@
         <h1>Schedule Board<br><small>{{chosenDate}}</small></h1>
       </div>
       <add-record></add-record>
+      <edit-record></edit-record>
+      <remove-record></remove-record>
       <div>
         <div id="form-div" class="well">
             <div class="row">
               <form id="adding-form" name="adding-form" class="form-inline" role='form'>
                 <div class="col-md-3 navbar-btn">
-                    <select name="time" id="newTime" ng-model="newRecord.time" class="form-control adding-input input-sm" required>
+                    <select name="time" id="newTime" ng-model="newRecord.time" class="form-control adding-input input-sm">
                       <option value="">--- Please select ---</option>
-                      <option value="08:00 - 09:00">08:00 - 09:00</option>
+                      <option ng-if="days[chosenDate][0].time !== '08:00 - 09:00'" value="08:00 - 09:00">08:00 - 09:00</option>
                       <option ng-if="record.title === '-'" ng-repeat="record in days[chosenDate]" value="{{record.time}}">{{record.time}}</option>
                     </select>
                 </div>
                 <div class="col-md-6 navbar-btn">
-                    <input name="fullname" type="text" class="form-control adding-input input-sm" id="newFullName" placeholder="Input your Full Name" ng-model="newRecord.title" required>
+                    <input name="fullname" type="text" class="form-control adding-input input-sm" id="newFullName" placeholder="Input your Full Name" ng-model="newRecord.title">
                 </div>
                 <div class="col-md-3 navbar-btn">
                   <button type="button" class="btn btn-primary btn-sm col-md-12" ng-click="addRecord()">Add</button>
@@ -65,7 +71,7 @@
                   <th class="col-md-5">
                     <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span>  Title
                   </th>
-                  <th class="col-md-2 use-center" colspan="2">
+                  <th class="col-md-2 use-center">
                     <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Actions
                   </th>
                 </tr>
@@ -76,29 +82,33 @@
                   <td class="col-md-1 use-center">{{$index + 1}}</td>
                   <td class="col-md-4">{{record.time}}</td>
                   <td class="col-md-5">{{record.title}}</td>
-                  <td class="col-md-1 use-center edit-icon">
+                  <td class="col-md-2">
+                    <div class="col-md-3 col-md-offset-2 edit-icon">
                       <span class="glyphicon glyphicon-pencil" role="button" ng-click="showEditForm(record)"></span>
-                  </td>
-                  <td class="col-md-1 use-center delete-icon">
-                      <span class="glyphicon glyphicon-trash" role="button" ng-click="activateDeletingRecord($event, record)"></span>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1 delete-icon">
+                      <span class="glyphicon glyphicon-trash" role="button" ng-click="activateDeletingRecord(record)"></span>
+                    </div>
                   </td>
                 </tr>
 
                 <tr ng-if="record != editingRecord && record.title === '-'" id="row{{$index + 1}}">
                   <td class="col-md-1 use-center">{{$index + 1}}</td>
                   <td class="col-md-4">{{record.time}}</td>
-                  <td class="col-md-7" colspan="3">{{record.title}}</td>
+                  <td class="col-md-7" colspan="2">{{record.title}}</td>
                 </tr>
 
                 <tr ng-if="record == editingRecord && record.title !== '-'" ng-repeat-end="">
                   <td class="col-md-1 use-center">{{$index + 1}}</td>
-                  <td class="col-md-4"><input class="form-control input-sm width-max" ng-model="record.time"></td>
-                  <td class="col-md-5"><input class="form-control input-sm width-max" ng-model="record.title"></td>
-                  <td class="col-md-1 use-center save-icon">
-                      <span class="glyphicon glyphicon-ok" ng-click="updateRecord(record)"></span>
-                  </td>
-                  <td class="col-md-1 use-center cancel-icon">
-                      <span class="glyphicon glyphicon-remove" ng-click="showEditForm(record)"></span>
+                  <td class="col-md-4">{{record.time}}</td>
+                  <td class="col-md-5"><input class="form-control input-sm width-max" ng-model="editedRecord.title"</td>
+                  <td class="col-md-2">
+                    <div class="col-md-3 col-md-offset-2 save-icon">
+                      <span class="glyphicon glyphicon-ok" role="button" ng-click="updateRecord(record)"></span>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1 cancel-icon">
+                      <span class="glyphicon glyphicon-remove" role="button" ng-click="showEditForm(record)"></span>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -107,7 +117,7 @@
       </div>
     </div>
 
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="delete-modal">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="deleteModal">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
@@ -120,6 +130,21 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="informModal">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{infMsg}}</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">ОК</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </body>
 </html>
