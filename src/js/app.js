@@ -10,7 +10,7 @@ app.controller("ScheduleBoardCtrl", ["$scope", function($scope) {
     if (pattern.test(enteredTitle) && enteredTitle.length >10) {
       return true;
     }
-    $scope.showInformModal("Insert correct name: characters and spaces (min 11 sybmols)");
+    $scope.showInformModal("Insert correct name: characters [a-z,A-Z] and spaces (min 11 sybmols)");
   }
 
   $scope.showInformModal = function(infMsg) {
