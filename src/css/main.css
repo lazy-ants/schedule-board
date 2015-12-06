@@ -50,8 +50,8 @@ calendar {
   background: white;
   width: 300px;
   border: solid 1px #CCC;
-  margin-bottom: 10px;
-  margin-top:285px;
+  margin-bottom: 40px;
+  margin-top: 20px;
 }
 calendar > div.header {
   float: left;

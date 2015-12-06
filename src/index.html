@@ -27,118 +27,123 @@
 </head>
 <body ng-app="app">
   <div ng-controller="ScheduleBoardCtrl" class="container-fluid">
-    <div class="col-md-3 col-md-offset-1">
-      <calendar selected="day">
-      </calendar>
-    </div>
-    <div board class="col-md-7">
-      <div class="page-header">
-        <h1>Schedule Board<br><small>{{chosenDate}}</small></h1>
-      </div>
-      <add-record></add-record>
-      <edit-record></edit-record>
-      <remove-record></remove-record>
-      <div>
-        <div id="form-div" class="well">
-            <div class="row">
-              <form id="adding-form" name="adding-form" class="form-inline" role='form'>
-                <div class="col-md-3 navbar-btn">
-                    <select name="time" id="newTime" ng-model="newRecord.time" class="form-control adding-input input-sm">
-                      <option value="">--- Please select ---</option>
-                      <option ng-if="days[chosenDate][0].time !== '08:00 - 09:00'" value="08:00 - 09:00">08:00 - 09:00</option>
-                      <option ng-if="record.title === '-'" ng-repeat="record in days[chosenDate]" value="{{record.time}}">{{record.time}}</option>
-                    </select>
-                </div>
-                <div class="col-md-6 navbar-btn">
-                    <input name="fullname" type="text" class="form-control adding-input input-sm" id="newFullName" placeholder="Input your Full Name" ng-model="newRecord.title">
-                </div>
-                <div class="col-md-3 navbar-btn">
-                  <button type="button" class="btn btn-primary btn-sm col-md-12" ng-click="addRecord()">Add</button>
-                </div>
-              </form>
-            </div>
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-4 col-md-6 col-md-offset-5 col-sm-12 ">
+        <div class="page-header">
+          <h1>Schedule Board<br><small>{{chosenDate}}</small></h1>
         </div>
-        <div class="table-responsive">
-          <table class="table table-hover table-condensed table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th class="col-md-1 use-center">
-                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> №
-                  </th>
-                  <th class="col-md-4">
-                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Time
-                  </th>
-                  <th class="col-md-5">
-                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span>  Title
-                  </th>
-                  <th class="col-md-2 use-center">
-                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
+        <add-record></add-record>
+        <edit-record></edit-record>
+        <remove-record></remove-record>
+        <board></board>
+        <div>
+          <div id="form-div" class="well">
+              <div class="row">
+                <form id="adding-form" name="adding-form" class="form-inline" role='form'>
+                  <div class="col-md-4 col-sm-4 navbar-btn">
+                      <select name="time" id="newTime" ng-model="newRecord.time" class="form-control adding-input input-sm">
+                        <option value="">--- Please select ---</option>
+                        <option ng-if="days[chosenDate][0].time !== '08:00 - 09:00'" value="08:00 - 09:00">08:00 - 09:00</option>
+                        <option ng-if="record.title === '-'" ng-repeat="record in days[chosenDate]" value="{{record.time}}">{{record.time}}</option>
+                      </select>
+                  </div>
+                  <div class="col-md-5 col-sm-5 navbar-btn">
+                      <input name="fullname" type="text" class="form-control adding-input input-sm" id="newFullName" placeholder="Input your Full Name" ng-model="newRecord.title">
+                  </div>
+                  <div class="col-md-3 col-sm-3 navbar-btn">
+                    <button type="button" class="btn btn-primary btn-sm col-md-12 col-sm-12" ng-click="addRecord()">Add</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-lg-offset-1 col-md-4 col-md-offset-1 col-xs-12">
+        <calendar selected="day">
+        </calendar>
+      </div>
+      <div class="table-responsive col-lg-7 col-lg-offset-0 col-md-6">
+        <table class="table table-hover table-condensed table-striped table-bordered">
+            <thead>
+              <tr>
+                <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2 use-center">
+                  <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> №
+                </th>
+                <th class="col-lg-4 col-md-3 col-sm-3 col-xs-3">
+                  <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Time
+                </th>
+                <th class="col-lg-5 col-md-4 col-sm-4 col-xs-4">
+                  <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span>  Title
+                </th>
+                <th class="col-lg-2 col-md-3 col-sm-3 col-xs-3 use-center">
+                  <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
 
-                <tr ng-if="record != editingRecord && record.title !== '-'" ng-repeat-start="record in days[chosenDate]" id="row{{$index + 1}}">
-                  <td class="col-md-1 use-center">{{$index + 1}}</td>
-                  <td class="col-md-4">{{record.time}}</td>
-                  <td class="col-md-5">{{record.title}}</td>
-                  <td class="col-md-2">
-                    <div class="col-md-3 col-md-offset-2 edit-icon">
+              <tr ng-if="record != editingRecord && record.title !== '-'" ng-repeat-start="record in days[chosenDate]" id="row{{$index + 1}}">
+                <td class="col-lg-1 col-md-2 col-sm-2 col-xs-2 use-center">{{$index + 1}}</td>
+                <td class="col-lg-4 col-md-3 col-sm-3 col-xs-3">{{record.time}}</td>
+                <td class="col-lg-5 col-md-4 col-sm-4 col-xs-4">{{record.title}}</td>
+                <td class="col-lg-2 col-md-3 col-sm-3 col-xs-3 use-center">
+                    <span class="use-center edit-icon">
                       <span class="glyphicon glyphicon-pencil" role="button" ng-click="showEditForm(record)"></span>
-                    </div>
-                    <div class="col-md-3 col-md-offset-1 delete-icon">
+                    </span>
+                    <span class="use-centerd delete-icon">
                       <span class="glyphicon glyphicon-trash" role="button" ng-click="activateDeletingRecord(record)"></span>
-                    </div>
-                  </td>
-                </tr>
+                  </span>
+                </td>
+              </tr>
 
-                <tr ng-if="record != editingRecord && record.title === '-'" id="row{{$index + 1}}">
-                  <td class="col-md-1 use-center">{{$index + 1}}</td>
-                  <td class="col-md-4">{{record.time}}</td>
-                  <td class="col-md-7" colspan="2">{{record.title}}</td>
-                </tr>
+              <tr ng-if="record != editingRecord && record.title === '-'" id="row{{$index + 1}}">
+                <td class="col-lg-1 col-md-2 col-sm-2 col-xs-2 use-center">{{$index + 1}}</td>
+                <td class="col-lg-4 col-md-3 col-sm-3 col-xs-3">{{record.time}}</td>
+                <td class="col-lg-7 col-md-7 col-sm-7 col-xs-7" colspan="2">{{record.title}}</td>
+              </tr>
 
-                <tr ng-if="record == editingRecord && record.title !== '-'" ng-repeat-end="">
-                  <td class="col-md-1 use-center">{{$index + 1}}</td>
-                  <td class="col-md-4">{{record.time}}</td>
-                  <td class="col-md-5"><input class="form-control input-sm width-max" ng-model="editedRecord.title"</td>
-                  <td class="col-md-2">
-                    <div class="col-md-3 col-md-offset-2 save-icon">
-                      <span class="glyphicon glyphicon-ok" role="button" ng-click="updateRecord(record)"></span>
-                    </div>
-                    <div class="col-md-3 col-md-offset-1 cancel-icon">
-                      <span class="glyphicon glyphicon-remove" role="button" ng-click="showEditForm(record)"></span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-          </table>
+              <tr ng-if="record == editingRecord && record.title !== '-'" ng-repeat-end="">
+                <td class="col-lg-1 col-md-2 col-sm-2 col-xs-2 use-center">{{$index + 1}}</td>
+                <td class="col-lg-4 col-md-3 col-sm-3 col-xs-3">{{record.time}}</td>
+                <td class="col-lg-5 col-md-4 col-sm-4 col-xs-4"><input class="form-control input-sm width-max" ng-model="editedRecord.title"</td>
+                <td class="col-lg-2 col-md-3 col-sm-3 col-xs-3 use-center">
+                  <span class="use-center save-icon">
+                    <span class="glyphicon glyphicon-ok" role="button" ng-click="updateRecord(record)"></span>
+                  </span>
+                  <span class="use-centerd cancel-icon">
+                    <span class="glyphicon glyphicon-remove" role="button" ng-click="showEditForm(record)"></span>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+
+      <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="deleteModal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Видалити запис?</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Скасувати</button>
+              <button id="confirmRemove" type="button" class="btn btn-danger" ng-click="removeRecord()" data-dismiss="modal">Видалити</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="deleteModal">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Видалити запис?</h4>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Скасувати</button>
-            <button id="confirmRemove" type="button" class="btn btn-danger" ng-click="removeRecord()" data-dismiss="modal">Видалити</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="informModal">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">{{infMsg}}</h4>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">ОК</button>
+      <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="informModal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{infMsg}}</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">ОК</button>
+            </div>
           </div>
         </div>
       </div>
