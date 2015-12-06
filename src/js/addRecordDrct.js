@@ -18,14 +18,8 @@ app.directive("addRecord", function() {
             scope.days[scope.chosenDate][i].title = scope.newRecord.title;
             scope.showInformModal('Record "' + scope.days[scope.chosenDate][i].title + '" successfully added!');
             resetNewRecord ();
-            return ;
           }
         }
-        scope.days[scope.chosenDate].unshift({});
-        scope.days[scope.chosenDate][0].time = scope.newRecord.time;
-        scope.days[scope.chosenDate][0].title = scope.newRecord.title;
-        scope.showInformModal('Record "' + scope.days[scope.chosenDate][0].title + '" successfully added!');
-        resetNewRecord ();
       }
 
       function resetNewRecord () {

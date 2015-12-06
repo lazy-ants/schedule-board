@@ -5,6 +5,10 @@ app.controller("ScheduleBoardCtrl", ["$scope", function($scope) {
   $scope.day = moment();
   $scope.chosenDate = $scope.day.format('DD MMMM YYYY');
 
+  //object should store every activated day and days that have records, if it's saving in storage
+  $scope.days = {};
+
+
   $scope.checkTitleValidation = function (enteredTitle) {
     var pattern = /^[a-zA-Z\s]+$/;
     if (pattern.test(enteredTitle) && enteredTitle.length >10) {
@@ -18,8 +22,6 @@ app.controller("ScheduleBoardCtrl", ["$scope", function($scope) {
     angular.element(document.querySelector('#informModal')).modal();
   };
 
-
-  $scope.days = {};
 
 
 }]);

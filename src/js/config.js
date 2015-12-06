@@ -1,3 +1,3 @@
-app.value("startHour", 9);
+app.value("startHour", 8);
 app.value("endHour", 18);
 

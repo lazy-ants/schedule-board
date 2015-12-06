@@ -43,7 +43,6 @@
                   <div class="col-md-4 col-sm-4 navbar-btn">
                       <select name="time" id="newTime" ng-model="newRecord.time" class="form-control adding-input input-sm">
                         <option value="">--- Please select ---</option>
-                        <option ng-if="days[chosenDate][0].time !== '08:00 - 09:00'" value="08:00 - 09:00">08:00 - 09:00</option>
                         <option ng-if="record.title === '-'" ng-repeat="record in days[chosenDate]" value="{{record.time}}">{{record.time}}</option>
                       </select>
                   </div>

@@ -13,10 +13,6 @@ app.directive("removeRecord", function() {
       //function removes an record from array and from server
       scope.removeRecord = function () {
         var deletedTitle = deletingRecord.title;
-        if (deletingRecord.time === "08:00 - 09:00") {
-          scope.days[scope.chosenDate].shift();
-          return;
-        }
         deletingRecord.title = "-";
       };
     }
