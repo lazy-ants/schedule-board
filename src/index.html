@@ -4,16 +4,17 @@
   <title>Schedule Board</title>
   <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/main.css">
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 
 
   <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/scheduleBoardCtrl.js"></script>
   <script type="text/javascript" src="js/config.js"></script>
   <script type="text/javascript" src="js/calendarDrct.js"></script>
   <script type="text/javascript" src="js/boardDrct.js"></script>
@@ -32,18 +33,17 @@
         <div class="page-header">
           <h1>Schedule Board<br><small>{{chosenDate}}</small></h1>
         </div>
-        <add-record></add-record>
         <edit-record></edit-record>
         <remove-record></remove-record>
         <board></board>
-        <div>
+        <div add-record class="id">
           <div id="form-div" class="well">
               <div class="row">
                 <form id="adding-form" name="adding-form" class="form-inline" role='form'>
                   <div class="col-md-4 col-sm-4 navbar-btn">
                       <select name="time" id="newTime" ng-model="newRecord.time" class="form-control adding-input input-sm">
                         <option value="">--- Please select ---</option>
-                        <option ng-if="record.title === '-'" ng-repeat="record in days[chosenDate]" value="{{record.time}}">{{record.time}}</option>
+                        <option id="chosenNewTime" ng-if="record.title === '-'" ng-repeat="record in days[chosenDate]" value="{{record.time}}">{{record.time}}</option>
                       </select>
                   </div>
                   <div class="col-md-5 col-sm-5 navbar-btn">

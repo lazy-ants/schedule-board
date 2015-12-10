@@ -26,8 +26,6 @@ app.directive("addRecord", function() {
         scope.newRecord.time = "";
         scope.newRecord.title = "";
       }
-
-
     }
   }
 });
