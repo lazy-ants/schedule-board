@@ -3,6 +3,7 @@
   "description": "",
   "main": "server.js",
   "authors": [
+    "lazy-ants <hello@lazy-ants.com>",
     "vbazyuk <bazyukvitaliy@gmail.com>"
   ],
   "license": "ISC",

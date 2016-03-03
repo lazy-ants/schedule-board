@@ -2,14 +2,15 @@
   "name": "sheduleboard",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://github.com/lazy-ants/schedule-board",
   "main": "server.js",
   "scripts": {
+    "install": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "postinstall": "bower install"
+    "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Lazy Ants",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.14.1",
     "bower": "^1.7.0",
@@ -17,5 +18,9 @@
     "express": "^4.13.3",
     "fs": "0.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": { 
+    "type" : "git",
+    "url" : "https://github.com/lazy-ants/schedule-board.git"
+  }
 }
