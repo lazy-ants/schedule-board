@@ -7,12 +7,27 @@ This is first Angular.js base prototype of our free tool *schedule board* for di
 * check online what time is free or taked
 * reseving your time
 
+### Install
+
+* npm install
+* node server.js
+* open in browser [http://localhost:3000](http://localhost:3000)
+
 ### Todo
 
 * get notification about your upcomming resevation
 * import day/time to your google calendar
+* use mondoDb as for storage
+* add multiply board
+* add authorization
+* docker package
 * make a react.js version
 * mobile app
+
+### For tests, run
+
+* npm install -g jasmine
+* jasmine
 
 ### Lincese
 
