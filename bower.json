@@ -14,14 +14,14 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "spec"
   ],
   "dependencies": {
     "jquery": "~2.1.4",
     "angular": "~1.4.8",
     "angular-mocks": "~1.4.8",
     "bootstrap": "~3.3.6",
-    "moment": "~2.10.6",
-    "jasmine-core": "jasmine#~2.4.1"
+    "moment": "~2.10.6"
   }
 }
