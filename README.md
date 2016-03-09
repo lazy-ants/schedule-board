@@ -26,8 +26,8 @@ This is first Angular.js base prototype of our free tool *schedule board* for di
 
 ### For tests, run
 
-* npm install -g jasmine
-* jasmine
+* npm install -g jasmine karma-cli
+* karma start
 
 ### Lincese
 
