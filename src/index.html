@@ -70,7 +70,7 @@
                                     <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Time
                                 </th>
                                 <th class="col-lg-5 col-md-4 col-sm-4 col-xs-4">
-                                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span>    Title
+                                    <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Title
                                 </th>
                                 <th class="col-lg-2 col-md-3 col-sm-3 col-xs-3 use-center">
                                     <span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> Actions
@@ -102,7 +102,9 @@
                             <tr ng-if="record == editingRecord && record.title !== '-'" ng-repeat-end="">
                                 <td class="col-lg-1 col-md-2 col-sm-2 col-xs-2 use-center">{{$index + 1}}</td>
                                 <td class="col-lg-4 col-md-3 col-sm-3 col-xs-3">{{record.time}}</td>
-                                <td class="col-lg-5 col-md-4 col-sm-4 col-xs-4"><input class="form-control input-sm width-max" ng-model="editedRecord.title"</td>
+                                <td class="col-lg-5 col-md-4 col-sm-4 col-xs-4">
+                                    <input class="form-control input-sm width-max" ng-model="editedRecord.title">
+                                </td>
                                 <td class="col-lg-2 col-md-3 col-sm-3 col-xs-3 use-center">
                                     <span class="use-center save-icon">
                                         <span class="glyphicon glyphicon-ok" role="button" ng-click="updateRecord(record)"></span>

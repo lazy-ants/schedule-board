@@ -20,10 +20,7 @@ app.directive("calendar", function() {
                   if (!scope.days[scope.chosenDate]) {
                     scope.days[scope.chosenDate] = [];
                     for (var i=0; i<scope.emptyDate.length; i++) {
-                      scope.days[scope.chosenDate][i] = {};
-                      for (var prop in scope.emptyDate[i]) {
-                        scope.days[scope.chosenDate][i][prop] = scope.emptyDate[i][prop];
-                      }
+                      scope.days[scope.chosenDate][i] = JSON.parse(JSON.stringify(scope.emptyDate[i]));
                     }
                   };
               };
@@ -34,7 +31,6 @@ app.directive("calendar", function() {
                 } else {
                   scope.showInformModal("You can't choose the date in past");
                 };
-
                 createDayRecord (); //if this day record not created early
               };
 
