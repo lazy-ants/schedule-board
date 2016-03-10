@@ -46,7 +46,11 @@
                                     <input name="fullname" type="text" class="form-control adding-input input-sm" id="newFullName" placeholder="Input your Full Name" ng-model="newRecord.title">
                                 </div>
                                 <div class="col-md-3 col-sm-3 navbar-btn">
-                                    <button type="button" class="btn btn-primary btn-sm col-md-12 col-sm-12" ng-click="addRecord()">Add</button>
+                                    <button 
+                                        type="button" 
+                                        id="add-record-btn"
+                                        class="btn btn-primary btn-sm col-md-12 col-sm-12" 
+                                        ng-click="addRecord()">Add</button>
                                 </div>
                             </form>
                         </div>
@@ -85,7 +89,7 @@
                                 <td class="col-lg-5 col-md-4 col-sm-4 col-xs-4">{{record.title}}</td>
                                 <td class="col-lg-2 col-md-3 col-sm-3 col-xs-3 use-center">
                                     <span class="use-center edit-icon">
-                                        <span class="glyphicon glyphicon-pencil" role="button" ng-click="showEditForm(record)"></span>
+                                        <span id="edit" class="glyphicon glyphicon-pencil" role="button" ng-click="showEditForm(record)"></span>
                                     </span>
                                     <span class="use-centerd delete-icon">
                                         <span class="glyphicon glyphicon-trash" role="button" ng-click="activateDeletingRecord(record)"></span>
