@@ -302,8 +302,6 @@ describe('removeRecordDrtc', function() {
         $compile = _$compile_;
         element = $compile("<remove-record></remove-record>")(scope);
         scope.$digest();
-
-        
     }));
 
     it('Clicks on "delete" activate Deleting Record and calls opening delete modals', function() {
@@ -336,6 +334,117 @@ describe('removeRecordDrtc', function() {
             expect(scope.deletingRecord.title).toEqual("-");
             expect(record.title).toEqual("-");
             expect(record.time).toEqual("08:00 - 09:00");
+        });
+    });
+});
+
+describe('removeRecordDrtc', function() {
+    var $compile,
+            $rootScope,
+            scope,
+            element,
+            deletingRecord,
+            startHour,
+            endHour;
+    beforeEach(module('app'));
+
+    beforeEach(inject(function (_$compile_, _$rootScope_, _startHour_, _endHour_){
+        $rootScope = _$rootScope_;
+        scope = $rootScope.$new();
+        $compile = _$compile_;
+        element = $compile("<board></board>")(scope);
+        startHour = _startHour_;
+        endHour = _endHour_;
+        scope.$digest();
+    }));
+
+    describe('Create example day shedule by hours', function() {
+
+        it('Day contains all hours', function() {
+            expect(scope.emptyDate.length).toEqual(endHour-startHour);
+        });
+
+        it('Day contains all hours (start hour from 0 to 8)', function() {
+            if (startHour >= 0 && startHour <= 8) {
+                expect(scope.emptyDate[0].time).toEqual("0" + startHour + ":00 - 0" + (startHour+1) + ":00");
+                if (endHour > 9) {
+                    expect(scope.emptyDate[scope.emptyDate.length-1].time).toEqual((endHour-1) + ":00 - " + (endHour) + ":00");
+                };
+            };
+        });
+
+        it('Day contains all hours (start hour equal 9', function() {
+            if (startHour === 9) {
+                expect(scope.emptyDate[0].time).toEqual("0" + startHour + ":00 - " + (startHour+1) + ":00");
+                expect(scope.emptyDate[scope.emptyDate.length-1].time).toEqual((endHour-1) + ":00 - " + (endHour) + ":00");
+            };
+        });
+
+        it('Day contains all hours (start hour from 10 to 23)', function() {
+            if (startHour >= 10 && startHour <= 23) {
+                expect(scope.emptyDate[0].time).toEqual(startHour + ":00 - " + (startHour+1) + ":00");
+                expect(scope.emptyDate[scope.emptyDate.length-1].time).toEqual((endHour-1) + ":00 - " + (endHour) + ":00");
+            };
+        });
+    });
+});
+
+describe('calendarDrct', function() {
+    var $compile,
+            $rootScope,
+            scope,
+            element,
+            deletingRecord;
+    beforeEach(module('app'));
+
+    beforeEach(inject(function (_$compile_, _$rootScope_, $templateCache){
+        var directiveTemplate = null;
+        var req = new XMLHttpRequest();
+        req.onload = function() {
+            directiveTemplate = this.responseText;
+        };
+        req.open("get", "templates/calendar.html", false);
+        req.send();
+        $templateCache.put("templates/calendar.html", directiveTemplate);
+
+        $rootScope = _$rootScope_;
+        scope = $rootScope.$new();
+
+        scope.days = {};
+        scope.emptyDate = [{
+            "time": "10:00 - 11:00",
+            "title": "-"
+        }, {
+            "time": "11:00 - 12:00",
+            "title": "-"
+        }, {
+            "time": "12:00 - 13:00",
+            "title": "-"
+        }, {
+            "time": "13:00 - 14:00",
+            "title": "-"
+        }, {
+            "time": "14:00 - 15:00",
+            "title": "-"
+        }, {
+            "time": "15:00 - 16:00",
+            "title": "-"
+        }, {
+            "time": "16:00 - 17:00",
+            "title": "-"
+        }];
+
+        $compile = _$compile_;
+        element = $compile("<calendar selected='day'></calendar>")(scope);
+        scope.$digest();
+    }));
+
+    describe('function createDayRecord () should have been called and worked', function() {
+        it('Chosen day pushed to days arrays with shedule by hour', function() {
+            expect(scope.days[scope.chosenDate][0].title).toEqual("-");
+            expect(scope.days[scope.chosenDate][0].time).toEqual("10:00 - 11:00");
+            expect(scope.days[scope.chosenDate][scope.days[scope.chosenDate].length-1].title).toEqual("-");
+            expect(scope.days[scope.chosenDate][scope.days[scope.chosenDate].length-1].time).toEqual("16:00 - 17:00");
         });
     });
 });

@@ -40,6 +40,19 @@ module.exports = function(config) {
  
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
+    plugins: ['karma-chrome-launcher',
+              'karma-jasmine',
+              'ng-html2js',
+              'karma-ng-html2js-preprocessor'],
+
+    preprocessors: {
+      'templates/*.html': 'ng-html2js'
+    },
+
+    ngHtml2JsPreprocessor: {
+      moduleName: 'templates',
+      stripPrefix: 'templates/'
+    }
   });
 };
