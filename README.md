@@ -13,6 +13,7 @@ This is first React.js base prototype of our free tool *schedule board* for dife
 
 ### Todo
 
+* add testing tools
 * get notification about your upcomming resevation
 * import day/time to your google calendar
 * use mondoDb as for storage
