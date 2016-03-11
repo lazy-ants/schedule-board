@@ -190,16 +190,12 @@ describe('editRecordDrtc', function() {
             element;
     beforeEach(module('app'));
 
-    beforeEach(inject(function (_$compile_, _$rootScope_, $templateCache){
-        $templateCache.put('testView.html', [
-              '<span id="edit" class="glyphicon glyphicon-pencil" role="button" ng-click="showEditForm(record)"></span>'
-            ].join(''));
+    beforeEach(inject(function (_$compile_, _$rootScope_){
         $rootScope = _$rootScope_;
         scope = $rootScope.$new();
         $compile = _$compile_;
         element = $compile("<edit-record></edit-record>")(scope);
         scope.$digest();
-
     }));
 
     it('Object scope.editingRecord is null', function() {
@@ -245,11 +241,12 @@ describe('editRecordDrtc', function() {
     });
 
     describe('scope.updateRecord() works', function() {
-        var record = {
-            time: "08:00 - 09:00",
-            title: "Andrey Vasilyev"
-        };
+        var record;
         beforeEach(function() {
+            record = {
+                time: "08:00 - 09:00",
+                title: "Andrey Vasilyev"
+            };
             scope.checkTitleValidation = function () { return true; };
             scope.showInformModal = function () { return };
         });
@@ -287,6 +284,58 @@ describe('editRecordDrtc', function() {
             it('scope.editingRecord reseted', function() {
                 expect(scope.editingRecord ).toBeNull();
             });
+        });
+    });
+});
+
+describe('removeRecordDrtc', function() {
+    var $compile,
+            $rootScope,
+            scope,
+            element,
+            deletingRecord;
+    beforeEach(module('app'));
+
+    beforeEach(inject(function (_$compile_, _$rootScope_){
+        $rootScope = _$rootScope_;
+        scope = $rootScope.$new();
+        $compile = _$compile_;
+        element = $compile("<remove-record></remove-record>")(scope);
+        scope.$digest();
+
+        
+    }));
+
+    it('Clicks on "delete" activate Deleting Record and calls opening delete modals', function() {
+        spyOn(scope, 'activateDeletingRecord');
+        simpleHtml = '<span id="delete" class="glyphicon glyphicon-trash" role="button" ng-click="activateDeletingRecord(record)"></span>';
+        el = $compile(angular.element(simpleHtml))(scope);
+        el.find('#delete').prevObject[0].click();
+
+        expect(scope.activateDeletingRecord).toHaveBeenCalled();
+    });
+
+    describe('Deleting process', function() {
+        var record;
+
+        beforeEach(function() {
+            record = {
+                time: "08:00 - 09:00",
+                title: "Ivan Vasilyev"
+            };
+            scope.activateDeletingRecord(record);
+        });
+
+        it('Record activates as deleting record', function() {
+            expect(scope.deletingRecord.title).toEqual("Ivan Vasilyev");
+            expect(scope.deletingRecord.time).toEqual("08:00 - 09:00");
+        });
+
+        it('Confirming of deleting reset title of record (delete it)', function() {
+            scope.removeRecord();
+            expect(scope.deletingRecord.title).toEqual("-");
+            expect(record.title).toEqual("-");
+            expect(record.time).toEqual("08:00 - 09:00");
         });
     });
 });
