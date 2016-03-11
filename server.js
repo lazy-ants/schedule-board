@@ -1,21 +1,14 @@
-var express = require('express');
-var cors = require('cors');
-var bodyParser = require('body-parser');
-var fs = require('fs');
-var app = express();
+var webpack = require('webpack');
+var WebpackDevServer = require('webpack-dev-server');
+var config = require('./webpack.config');
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
+new WebpackDevServer(webpack(config), {
+  publicPath: config.output.publicPath,
+  hot: true
+}).listen(3000, '0.0.0.0', function (err, result) {
+  if (err) {
+    console.log(err);
+  }
 
-app.use(cors());
-
-app.use(express.static(__dirname + "/src"));
-
-
-var server = app.listen(process.env.PORT || 3000, function() {
-  console.log('Listening on port: 3000');
+  console.log('Listening on port:3000');
 });
-
-
