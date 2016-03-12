@@ -10,13 +10,15 @@ var HashHistory = new CreateHistory({
 });
 
 var Main = require('./components/main.js');
-var Schedule = require('./components/shedule.js');
+var Board = require('./components/board.js');
+var About = require('./components/about.js');
 
 module.exports = React.createClass({
 	render: function () {
 		return (<Router history={HashHistory}>
 		<Route path="/" component={Main}>
-			<Route path="schedule/:id" component={Schedule} />
+			<Route path="/board" component={Board} />
+			<Route path="/about" component={About} />
 		</Route>
 	</Router>)
 	}

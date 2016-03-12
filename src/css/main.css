@@ -1,3 +1,51 @@
 body {
 	background: lightgrey;
 }
+
+.custom-page-header{
+	margin-top: 0px;
+}
+
+.table {
+  margin: 20px auto;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.form-div, .calendar-div {
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.calendar-div{
+	margin-top: 20px;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+.use-center {
+  text-align: center;
+}
+.adding-input {
+  width: 100% !important;
+}
+.add-button-margin {
+  margin: 10px 15px 0px 0px;
+}
+
+.edit-icon{
+  color:#5cb85c !important;
+}
+
+.delete-icon{
+  color:#d9534f !important;
+}
+
+.save-icon{
+  color:#337ab7 !important;
+}
+
+.cancel-icon{
+  color:#f0ad4e !important;
+}

@@ -1,18 +1,20 @@
 "use strict";
 
 var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
 
 module.exports =  React.createClass({
 	render: function() {
 		return (
 			<nav className="navbar navbar-default header">
 				<div className="container-fluid">
-					<a to="/" className="navbar-brand">
+					<Link to="/" className="navbar-brand">
 						Schedule Board
-					</a>
+					</Link>
 					<ul className="nav navbar-nav navbar-right">
-						<li><a>item 1</a></li>
-						<li><a>item 2</a></li>
+						<li><Link to="/board">Board</Link></li>
+						<li><Link to="/about">About</Link></li>
 					</ul>
 				</div>
 			</nav>

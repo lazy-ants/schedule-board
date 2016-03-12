@@ -6,7 +6,7 @@ module.exports =  React.createClass({
 	render: function() {
 		return (
 			<h1>
-				Schedule Board
+				About Schedule Board
 			</h1>
 		);
 	}	
