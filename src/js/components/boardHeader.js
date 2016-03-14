@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-module.exports =  React.createClass({
+var BoardHeader = React.createClass({
 	render: function() {
 		return (
 			<div className="page-header custom-page-header">
@@ -10,4 +10,6 @@ module.exports =  React.createClass({
 			</div>
 		);
 	}	
-})
+});
+
+module.exports = BoardHeader;

@@ -4,7 +4,7 @@ var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
 
-module.exports =  React.createClass({
+var StartJumbotron = React.createClass({
 	render: function() {
 		return (
 			<div className="jumbotron">
@@ -18,4 +18,6 @@ module.exports =  React.createClass({
 			</div>
 		);
 	}	
-})
+});
+
+module.exports = StartJumbotron;

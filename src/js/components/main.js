@@ -4,7 +4,7 @@ var React = require('react');
 var Header = require('./header.js');
 var StartPage = require('./startPage.js');
 
-module.exports =  React.createClass({
+var Main = React.createClass({
 	content: function(){
 		if (this.props.children) {
 			return this.props.children;
@@ -20,4 +20,6 @@ module.exports =  React.createClass({
 			</div>
 		);
 	}	
-})
+});
+
+module.exports = Main;
