@@ -1,0 +1,1 @@
+module.exports.ADD_RECORD = 'ADD_RECORD';

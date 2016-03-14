@@ -7,6 +7,7 @@ var BoardHeader = require('./boardHeader.js');
 var AddRecordForm = require('./addRecordForm.js');
 var Calendar = require('rc-calendar');
 var Table = require('./table.js');
+var BusinessHours = require('../constants/businessHours.js').BusinessHours;
 
 function getFormatedDate (date) {
 	var monthNames = [
@@ -55,17 +56,22 @@ var Board =  React.createClass({
 	},
 	getInitialState: function () {
 		return {
-			dayHourRecords: this.createHourlyDay ([], 8, 18),
+			dayHourRecords: this.createHourlyDay ([], BusinessHours.startHour, BusinessHours.endHour),
 			chosenDate: getFormatedDate (new Date())
 		}
 	},
 	render: function() {
+		var state = this.props.state;
+		var actions = this.props.actions;
 		return (
 			<div>
 				<div className="row">
 					<div className="col-lg-7 col-lg-offset-4 col-md-6 col-md-offset-5 col-sm-12 ">
 						<BoardHeader chosenDate={this.state.chosenDate.toString()} />
-						<AddRecordForm dayHourRecords={this.state.dayHourRecords} />
+						<AddRecordForm 
+							dayHourRecords={this.state.dayHourRecords} 
+							chosenDate={this.state.chosenDate}
+							addRecordAction={actions.addRecord} />
 					</div>
 				</div>
 				<div className="row">

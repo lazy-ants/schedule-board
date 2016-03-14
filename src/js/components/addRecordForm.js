@@ -38,8 +38,7 @@ var AddRecordForm = React.createClass({
         var titleValid = this.checkTitleValidation (this.state.title);
         if (timeValid) {
             if (titleValid) {
-                // applyNewTitle ();
-                console.log("valid true")
+                this.props.addRecordAction(this.props.chosenDate, {time: this.state.time, title: this.state.title});
             } else {
                 this.openIncorrectNameModal();
             }
