@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require('react');
-var Modal = require('./modal.js');
+var Modal = require('../common/modal.js');
 
 var AddRecordForm = React.createClass({
     getInitialState: function() {

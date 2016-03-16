@@ -1,10 +1,10 @@
 "use strict";
 
 var React = require('react');
-var TableHead = require('./tableHead.js');
-var ViewEmptyRow = require('./viewEmptyRow.js');
-var ViewFilledRow = require('./viewFilledRow.js');
-var EditingRow = require('./editingRow.js');
+var TableHead = require('./table/tableHead.js');
+var ViewEmptyRow = require('./table/viewEmptyRow.js');
+var ViewFilledRow = require('./table/viewFilledRow.js');
+var EditingRow = require('./table/editingRow.js');
 
 var Table =  React.createClass({
 	renderTBodyRows: function () {

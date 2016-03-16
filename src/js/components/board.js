@@ -6,10 +6,10 @@ var React = require('react');
 var bindActionCreators = require('redux').bindActionCreators;
 var connect=require("react-redux").connect;
 
-var BoardHeader = require('./boardHeader.js');
-var AddRecordForm = require('./addRecordForm.js');
+var BoardHeader = require('./board/boardHeader.js');
+var AddRecordForm = require('./board/addRecordForm.js');
+var Table = require('./board/table.js');
 var Calendar = require('rc-calendar');
-var Table = require('./table.js');
 var Actions = require('../actions/actions.js');
 
 function getFormatedDate (date) {

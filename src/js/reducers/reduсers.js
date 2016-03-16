@@ -18,22 +18,12 @@ function boardRecordsReducer(state, action) {
 				if (state.days[action.chosenDate][action.recordObj.time].title === "-") {
 					days[action.chosenDate][action.recordObj.time].title = action.recordObj.title
 					return assign({}, state, { days: days});
-					// return {
-					// 	days:state.days,
-					// 	defaultHourlyDay: CreateHourlyDay ({}, BusinessHours.startHour, BusinessHours.endHour)
-					// }
-				} else {
-					console.log('Time is reserved')
 				}
 			};
 			if (!state.days[action.chosenDate]) {
 				days[action.chosenDate] = JSON.parse(JSON.stringify(state.defaultHourlyDay));
 				days[action.chosenDate][action.recordObj.time].title = action.recordObj.title;
-				return assign({}, state, { days: days})
-				// return {
-				// 	days:state.days,
-				// 	defaultHourlyDay: CreateHourlyDay ({}, BusinessHours.startHour, BusinessHours.endHour)
-				// }
+				return assign( {}, state, { days: days } )
 			};
 
 		default:

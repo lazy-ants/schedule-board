@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require('react');
-var StartJumbotron = require('./startJumbotron.js');
+var StartJumbotron = require('./startPage/startJumbotron.js');
 
 var StartPage = React.createClass({
 	render: function() {
