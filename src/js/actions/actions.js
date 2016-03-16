@@ -1,3 +1,5 @@
+"use strict";
+
 var types = require('../constants/actionTypes.js');
 
 module.exports.addRecord = function addRecord(chosenDate, recordObj) {

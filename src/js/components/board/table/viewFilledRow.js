@@ -1,9 +1,21 @@
 "use strict";
 
 var React = require('react');
+var DialogModal = require('../../common/dialogModal.js');
 
 var ViewFilledRow =  React.createClass({
-	onClickDeleteHandler: function () {
+	getInitialState: function() {
+		return {
+			showDeletingModal: false,
+		};
+	},
+	onClickDeleteHandler: function (modal) {
+	  this.setState({ showDeletingModal: true });
+	},
+	closeDeletingModal: function (modal) {
+	  this.setState({ showDeletingModal: false });
+	},
+	confirmDelete: function () {
 		this.props.deleteRecordAction(this.props.chosenDate, this.props.time);
 	},
 	render: function() {
@@ -23,6 +35,13 @@ var ViewFilledRow =  React.createClass({
 							onClick={this.onClickDeleteHandler} >
 						</span>
 					</span>
+					<DialogModal 
+						show={this.state.showDeletingModal} 
+						onHide={this.closeDeletingModal} 
+						onConfirm={this.confirmDelete} 
+						bsSize="small" 
+						title="Confirm Delete" 
+						body={<h5>Delete reservation "{this.props.title}" on {this.props.time} ?</h5>} />
 				</td>
 			</tr>
 		);

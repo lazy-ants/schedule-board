@@ -1,3 +1,5 @@
+"use strict";
+
 var assign = require('object-assign');
 var types = require('../constants/actionTypes.js');
 var BusinessHours = require('../constants/businessHours.js').BusinessHours;

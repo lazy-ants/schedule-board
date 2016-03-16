@@ -4,7 +4,7 @@ var React = require('react');
 var BootstrapModal = require('react-bootstrap/lib/Modal');
 var Button = require('react-bootstrap/lib/Button')
 
-var Modal = React.createClass({
+var InformModal = React.createClass({
 	renderModalBody: function () {
 		if (this.props.body) {
 			return <BootstrapModal.Body>{this.props.body}</BootstrapModal.Body>
@@ -25,4 +25,4 @@ var Modal = React.createClass({
 	}	
 });
 
-module.exports = Modal;
+module.exports = InformModal;

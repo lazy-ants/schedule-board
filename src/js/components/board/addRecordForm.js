@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require('react');
-var Modal = require('../common/modal.js');
+var InformModal = require('../common/informModal.js');
 
 var AddRecordForm = React.createClass({
     getInitialState: function() {
@@ -123,14 +123,14 @@ var AddRecordForm = React.createClass({
                     </form>
                 </div>
 
-                <Modal 
+                <InformModal 
                     show={this.state.showIncorrectNameModal} 
                     onHide={this.closeIncorrectNameModal} 
                     bsSize="small" 
                     title="Insert correct name" 
                     body={<div><h4>Allowed characters [a-z,A-Z] and spaces</h4><p>(min 11 sybmols)</p></div>} />
                 
-                <Modal 
+                <InformModal 
                     show={this.state.showIncorrectTimeModal} 
                     onHide={this.closeIncorrectTimeModal} 
                     bsSize="small" 

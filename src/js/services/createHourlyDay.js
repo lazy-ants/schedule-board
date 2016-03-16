@@ -1,3 +1,5 @@
+"use strict";
+
 var CreateHourlyDay = function (dayHourRecords, startHour, endHour) {
 	if (isNaN(startHour) === true ||
 	  isNaN(endHour) === true ||
