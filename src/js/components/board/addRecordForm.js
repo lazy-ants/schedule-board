@@ -12,6 +12,12 @@ var AddRecordForm = React.createClass({
             showIncorrectTimeModal: false
         };
     },
+    componentWillReceiveProps: function () {
+        this.setState({
+            time: this.props.time,
+            title: this.props.title
+        });
+    },
     renderSelectOptions: function () {
         var optionArray = [];
         var i = 0;

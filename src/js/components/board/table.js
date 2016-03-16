@@ -14,11 +14,23 @@ var Table =  React.createClass({
 		for (var time in dayHourRecords) {
 			i++;
 			if (dayHourRecords[time].title === "-") {
-				rows.push(<ViewEmptyRow time={time} title={dayHourRecords[time].title} key={i} indexKey={i} />)
+				rows.push(<ViewEmptyRow 
+							time={time} 
+							title={dayHourRecords[time].title} 
+							key={i} 
+							indexKey={i} />)
+
 			} else if (dayHourRecords[time].title !== "-" && typeof(dayHourRecords[time].title) === "string") {
-				rows.push(<ViewFilledRow time={time} title={dayHourRecords[time].title} key={i} indexKey={i} />)
+				rows.push(<ViewFilledRow 
+							time={time} 
+							title={dayHourRecords[time].title} 
+							key={i} 
+							indexKey={i}
+							chosenDate={this.props.chosenDate}
+							deleteRecordAction={this.props.deleteRecordAction} />)
 			}
 		}
+
 		return rows;
 	},
 	render: function() {

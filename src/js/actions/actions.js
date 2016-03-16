@@ -10,3 +10,11 @@ module.exports.addRecord = function addRecord(chosenDate, recordObj) {
 		}
 	};
 };
+
+module.exports.deleteRecord = function addRecord(chosenDate, recordTime) {
+	return {
+		type: types.DELETE_RECORD,
+		chosenDate: chosenDate,
+		time: recordTime
+	};
+};

@@ -3,6 +3,9 @@
 var React = require('react');
 
 var ViewFilledRow =  React.createClass({
+	onClickDeleteHandler: function () {
+		this.props.deleteRecordAction(this.props.chosenDate, this.props.time);
+	},
 	render: function() {
 		return (
 			<tr>
@@ -14,7 +17,11 @@ var ViewFilledRow =  React.createClass({
 						<span id="edit" className="glyphicon glyphicon-pencil" role="button"></span>
 					</span>
 					<span className="use-centerd delete-icon">
-						<span className="glyphicon glyphicon-trash" role="button"></span>
+						<span 
+							className="glyphicon glyphicon-trash" 
+							role="button"
+							onClick={this.onClickDeleteHandler} >
+						</span>
 					</span>
 				</td>
 			</tr>

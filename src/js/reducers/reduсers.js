@@ -8,8 +8,8 @@ var initialState = {
 	defaultHourlyDay: CreateHourlyDay ({}, BusinessHours.startHour, BusinessHours.endHour)
 };
 
-function boardRecordsReducer(state, action) {
-	state = state || initialState
+function reducer(state, action) {
+	state = state || initialState;
 	switch (action.type) {
 
 		case types.ADD_RECORD:
@@ -26,9 +26,14 @@ function boardRecordsReducer(state, action) {
 				return assign( {}, state, { days: days } )
 			};
 
+		case types.DELETE_RECORD:
+			var days = JSON.parse(JSON.stringify(state.days));
+			days[action.chosenDate][action.time].title = "-";
+			return assign({}, state, { days: days});
+
 		default:
 			return state;
 		}
 };
 
-module.exports = boardRecordsReducer;
+module.exports = reducer;

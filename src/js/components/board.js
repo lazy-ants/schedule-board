@@ -26,12 +26,12 @@ function getFormatedDate (date) {
 var Board =  React.createClass({
 	changeDate: function (e) {
 		this.setState({
-			chosenDate: getFormatedDate (new Date(e.time)),
+			chosenDate: getFormatedDate (new Date(e.time))
 		});
 	},
 	getInitialState: function () {
 		return {
-			chosenDate: getFormatedDate (new Date()),
+			chosenDate: getFormatedDate (new Date())
 		}
 	},
 	render: function() {
@@ -49,7 +49,9 @@ var Board =  React.createClass({
 
 						<AddRecordForm 
 							dayHourRecords={dayHourRecords} 
-							chosenDate={this.state.chosenDate}
+							chosenDate={this.state.chosenDate} 
+							time=""
+							title=""
 							addRecordAction={actions.addRecord} />
 
 					</div>
@@ -66,7 +68,9 @@ var Board =  React.createClass({
 					<div className="table-responsive col-lg-7 col-lg-offset-0 col-md-6">
 
 						<Table 
-							dayHourRecords={dayHourRecords} />
+							dayHourRecords={dayHourRecords}
+							chosenDate={this.state.chosenDate}
+							deleteRecordAction={actions.deleteRecord} />
 
 					</div>
 				</div>
