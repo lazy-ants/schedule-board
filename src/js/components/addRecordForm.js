@@ -6,7 +6,6 @@ var Modal = require('./modal.js');
 var AddRecordForm = React.createClass({
     getInitialState: function() {
         return {
-            dayHourRecords: this.props.dayHourRecords,
             time: "",
             title: "",
             showIncorrectNameModal: false,
@@ -14,9 +13,14 @@ var AddRecordForm = React.createClass({
         };
     },
     renderSelectOptions: function () {
-        return this.state.dayHourRecords.map(function (record, i) {
-            return <option value={record.time} key={i}>{record.time}</option>
-        })
+        var optionArray = [];
+        var i = 0;
+        for (var time in this.props.dayHourRecords) {
+            if (this.props.dayHourRecords[time].title === "-") {
+                optionArray.push(<option value={time} key={i++}>{time}</option>)
+            }
+        }
+        return optionArray;
     },
     onChangeSelectHandler: function (e) {
         var options = e.target.options;
@@ -39,6 +43,10 @@ var AddRecordForm = React.createClass({
         if (timeValid) {
             if (titleValid) {
                 this.props.addRecordAction(this.props.chosenDate, {time: this.state.time, title: this.state.title});
+                this.setState({
+                    time: "",
+                    title: "" 
+                });
             } else {
                 this.openIncorrectNameModal();
             }
@@ -81,8 +89,9 @@ var AddRecordForm = React.createClass({
                                 name="time" 
                                 id="newTime" 
                                 className="form-control adding-input input-sm"
-                                onChange={this.onChangeSelectHandler}>
-                                <option value="">--- Please select ---</option>
+                                onChange={this.onChangeSelectHandler}
+                                value={this.state.time} >
+                                <option value="" >--- Please select ---</option>
                                 {this.renderSelectOptions()}
                             </select>
                         </div>
@@ -92,7 +101,8 @@ var AddRecordForm = React.createClass({
                                 type="text" 
                                 className="form-control adding-input input-sm" 
                                 id="newFullName" 
-                                placeholder="Input your Full Name" 
+                                placeholder="Input your Full Name"
+                                value={this.state.title} 
                                 onChange={this.onChangeInputHandler} />
                         </div>
                         <div className="col-md-3 col-sm-3 navbar-btn">
@@ -106,12 +116,14 @@ var AddRecordForm = React.createClass({
                         </div>
                     </form>
                 </div>
+
                 <Modal 
                     show={this.state.showIncorrectNameModal} 
                     onHide={this.closeIncorrectNameModal} 
                     bsSize="small" 
                     title="Insert correct name" 
                     body={<div><h4>Allowed characters [a-z,A-Z] and spaces</h4><p>(min 11 sybmols)</p></div>} />
+                
                 <Modal 
                     show={this.state.showIncorrectTimeModal} 
                     onHide={this.closeIncorrectTimeModal} 

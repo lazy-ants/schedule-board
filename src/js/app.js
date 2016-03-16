@@ -1,8 +1,4 @@
-// require vendor STYLES
-var BootstrapYetiCss = require("../../node_modules/bootstrap/dist/css/bootstrap-yeti.min.css");
-
-// require custom STYLES
-var MainCss = require("../css/main.css");
+"use strict";
 
 var React = require('react');
 var Routes = require('./routes.js');
