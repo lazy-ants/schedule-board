@@ -5,11 +5,14 @@ var TableHead = require('./table/tableHead.js');
 var ViewEmptyRow = require('./table/viewEmptyRow.js');
 var ViewFilledRow = require('./table/viewFilledRow.js');
 var EditingRow = require('./table/editingRow.js');
+var InformModal = require('../common/informModal.js');
+var checkTitleValidationService = require('../../services/checkTitleValidation.js');
 
 var Table =  React.createClass({
 	getInitialState: function() {
 		return {
-			editingRecordIndex: null 
+			editingRecordIndex: null,
+			showIncorrectEditingNameModal: false 
 		};
 	},
 	renderTBodyRows: function (editingRecordIndex) {
@@ -55,9 +58,16 @@ var Table =  React.createClass({
 		});
 	},
 	saveRecord: function (newTitle, time) {
-		this.props.editRecordAction(this.props.chosenDate, time, newTitle);
-
-		this.closeEditingRow();
+		var titleValid = this.checkTitleValidation (newTitle);
+		if (titleValid) {
+			this.props.editRecordAction(this.props.chosenDate, time, newTitle);
+			this.closeEditingRow();
+		} else {
+			this.openIncorrectEditingNameModal();
+		};
+	},
+	checkTitleValidation: function (text) {
+		return checkTitleValidationService(text)
 	},
 	closeEditingRow: function (e) {
 		if (e) {
@@ -68,14 +78,28 @@ var Table =  React.createClass({
 			editingRecordIndex: null
 		});
 	},
+	openIncorrectEditingNameModal: function (modal) {
+	  this.setState({ showIncorrectEditingNameModal: true });
+	},
+	closeIncorrectEditingNameModal: function (modal) {
+	  this.setState({ showIncorrectEditingNameModal: false });
+	},
 	render: function() {
 		return (
-			<table className="table table-hover table-condensed table-bordered">
-				<TableHead />
-				<tbody>
-					{this.renderTBodyRows(this.state.editingRecordIndex)}
-				</tbody>
-			</table>
+			<div>
+				<table className="table table-hover table-condensed table-bordered">
+					<TableHead />
+					<tbody>
+						{this.renderTBodyRows(this.state.editingRecordIndex)}
+					</tbody>
+				</table>
+				<InformModal 
+					show={this.state.showIncorrectEditingNameModal} 
+					onHide={this.closeIncorrectEditingNameModal} 
+					bsSize="small" 
+					title="Insert correct name" 
+					body={<div><h4>Allowed characters [a-z,A-Z] and spaces</h4><p>(min 11 sybmols)</p></div>} />
+			</div>
 		);
 	}	
 });

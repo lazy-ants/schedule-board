@@ -2,6 +2,7 @@
 
 var React = require('react');
 var InformModal = require('../common/informModal.js');
+var checkTitleValidationService = require('../../services/checkTitleValidation.js');
 
 var AddRecordForm = React.createClass({
     getInitialState: function() {
@@ -67,11 +68,7 @@ var AddRecordForm = React.createClass({
         return false;
     },
     checkTitleValidation: function (text) {
-        var pattern = /^[a-zA-Z\s]+$/;
-        if (pattern.test(text) && text.length >10) {
-            return true;
-        }
-        return false;
+        return checkTitleValidationService(text)
     },
     openIncorrectNameModal: function (modal) {
       this.setState({ showIncorrectNameModal: true });
