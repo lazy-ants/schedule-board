@@ -6,7 +6,7 @@ var DialogModal = require('../../common/dialogModal.js');
 var ViewFilledRow =  React.createClass({
 	getInitialState: function() {
 		return {
-			showDeletingModal: false,
+			showDeletingModal: false
 		};
 	},
 	onClickDeleteHandler: function (modal) {
@@ -26,7 +26,13 @@ var ViewFilledRow =  React.createClass({
 				<td className="col-lg-5 col-md-4 col-sm-4 col-xs-4">{this.props.title}</td>
 				<td className="col-lg-2 col-md-3 col-sm-3 col-xs-3 use-center">
 					<span className="use-center edit-icon">
-						<span id="edit" className="glyphicon glyphicon-pencil" role="button"></span>
+						<span 
+							id="edit" 
+							className="glyphicon glyphicon-pencil" 
+							role="button" 
+							indexKey={this.props.indexKey} 
+							onClick={this.props.onEditHandle.bind(null, this.props.indexKey)} >
+						</span>
 					</span>
 					<span className="use-centerd delete-icon">
 						<span 

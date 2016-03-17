@@ -28,6 +28,11 @@ function reducer(state, action) {
 				return assign( {}, state, { days: days } )
 			};
 
+		case types.EDIT_RECORD:
+			var days = JSON.parse(JSON.stringify(state.days));
+			days[action.chosenDate][action.time].title = action.title;
+			return assign({}, state, { days: days});
+
 		case types.DELETE_RECORD:
 			var days = JSON.parse(JSON.stringify(state.days));
 			days[action.chosenDate][action.time].title = "-";

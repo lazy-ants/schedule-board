@@ -70,6 +70,7 @@ var Board =  React.createClass({
 						<Table 
 							dayHourRecords={dayHourRecords}
 							chosenDate={this.state.chosenDate}
+							editRecordAction={actions.editRecord}
 							deleteRecordAction={actions.deleteRecord} />
 
 					</div>

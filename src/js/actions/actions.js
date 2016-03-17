@@ -13,7 +13,16 @@ module.exports.addRecord = function addRecord(chosenDate, recordObj) {
 	};
 };
 
-module.exports.deleteRecord = function addRecord(chosenDate, recordTime) {
+module.exports.editRecord = function editRecord(chosenDate, recordTime, newTitle) {
+	return {
+		type: types.EDIT_RECORD,
+		chosenDate: chosenDate,
+		time: recordTime,
+		title: newTitle
+	};
+};
+
+module.exports.deleteRecord = function deleteRecord(chosenDate, recordTime) {
 	return {
 		type: types.DELETE_RECORD,
 		chosenDate: chosenDate,
