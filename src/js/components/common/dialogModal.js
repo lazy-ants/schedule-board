@@ -19,7 +19,7 @@ var DialogModal = React.createClass({
 				{this.renderModalBody()}
 				<BootstrapModal.Footer>
 					<Button onClick={this.props.onHide} className="btn-sm">Close</Button>
-					<Button onClick={this.props.onConfirm} bsStyle="primary">Confirm</Button>
+					<Button onClick={this.props.onConfirm} bsStyle="primary" className="btn-sm">Confirm</Button>
 				</BootstrapModal.Footer>
 			</BootstrapModal>
 		);
