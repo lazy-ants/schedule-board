@@ -35,6 +35,7 @@
     "history": "^1.13.1",
     "object-assign": "^4.0.1",
     "path": "^0.11.14",
+    "rc-calendar": "^5.4.2",
     "react": "^0.14.3",
     "react-bootstrap": "^0.28.3",
     "react-dom": "^0.14.3",
