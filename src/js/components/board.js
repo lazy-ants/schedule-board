@@ -1,6 +1,6 @@
 "use strict";
 
-require('rc-calendar/assets/index.css');
+require('../custom_modules/rc-calendar/assets/index.css');
 
 var React = require('react');
 var bindActionCreators = require('redux').bindActionCreators;
@@ -9,7 +9,7 @@ var connect=require("react-redux").connect;
 var BoardHeader = require('./board/boardHeader.js');
 var AddRecordForm = require('./board/addRecordForm.js');
 var Table = require('./board/table.js');
-var Calendar = require('rc-calendar');
+var Calendar = require('../custom_modules/rc-calendar');
 var Actions = require('../actions/actions.js');
 
 function getFormatedDate (date) {
