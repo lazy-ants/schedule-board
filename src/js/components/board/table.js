@@ -11,6 +11,7 @@ var checkTitleValidationService = require('../../services/checkTitleValidation.j
 var Table =  React.createClass({
 	getInitialState: function() {
 		return {
+			processType: null,
 			editingRecordIndex: null,
 			showIncorrectEditingNameModal: false 
 		};
@@ -28,14 +29,16 @@ var Table =  React.createClass({
 							key={i} 
 							indexKey={i}
 							onSaveHandle={this.saveRecord}
-							onCancelHandle={this.closeEditingRow} />)
+							onCancelHandle={this.closeEditingRow}
+							processType={this.state.processType} />)
 			} else {
 				if (dayHourRecords[time].title === "-") {
 					rows.push(<ViewEmptyRow 
 								time={time} 
 								title={dayHourRecords[time].title} 
 								key={i} 
-								indexKey={i} />)
+								indexKey={i}
+								onCreateHandle={this.openEditingRow} />)
 
 				} else if (dayHourRecords[time].title !== "-" && typeof(dayHourRecords[time].title) === "string") {
 					rows.push(<ViewFilledRow 
@@ -52,15 +55,36 @@ var Table =  React.createClass({
 
 		return rows;
 	},
-	openEditingRow: function (key) {
-		this.setState({
-			editingRecordIndex: key
-		});
+	openEditingRow: function (key, processType) {
+		if (this.checkTense()) {
+			this.setState({
+				editingRecordIndex: key,
+				processType: processType
+			});
+		};
+	},
+	checkTense: function () {
+		var today = new Date();
+		today.setHours(0, 0, 0, 0);
+		var chosenDay = this.props.chosenUnformatedDate;
+		chosenDay.setHours(0, 0, 0, 0);
+		if (chosenDay<today) {
+			this.openIncorrectDateModal();
+			return false
+		}
+		return true
 	},
 	saveRecord: function (newTitle, time) {
 		var titleValid = this.checkTitleValidation (newTitle);
 		if (titleValid) {
-			this.props.editRecordAction(this.props.chosenDate, time, newTitle);
+			switch(this.state.processType) {
+				case 'editing':
+					this.props.editRecordAction(this.props.chosenDate, time, newTitle);
+					break;
+				case 'creating':
+					this.props.addRecordAction(this.props.chosenDate, {time: time, title: newTitle});
+					break;
+			}
 			this.closeEditingRow();
 		} else {
 			this.openIncorrectEditingNameModal();
@@ -75,6 +99,7 @@ var Table =  React.createClass({
 			e.stopPropagation();
 		};
 		this.setState({
+			processType: null,
 			editingRecordIndex: null
 		});
 	},
@@ -83,6 +108,12 @@ var Table =  React.createClass({
 	},
 	closeIncorrectEditingNameModal: function (modal) {
 	  this.setState({ showIncorrectEditingNameModal: false });
+	},
+	openIncorrectDateModal: function (modal) {
+	  this.setState({ showIncorrectDateModal: true });
+	},
+	closeIncorrectDateModal: function (modal) {
+	  this.setState({ showIncorrectDateModal: false });
 	},
 	render: function() {
 		return (
@@ -98,7 +129,13 @@ var Table =  React.createClass({
 					onHide={this.closeIncorrectEditingNameModal} 
 					bsSize="small" 
 					title="Insert correct name" 
-					body={<div><h4>Allowed characters [a-z,A-Z] and spaces</h4><p>(min 11 sybmols)</p></div>} />
+					body={<div><h4>Title should have min 2 sybmols</h4></div>} />
+				<InformModal 
+					show={this.state.showIncorrectDateModal} 
+					onHide={this.closeIncorrectDateModal} 
+					bsSize="small" 
+					title="Choose correct date" 
+					body={<div><h4>You can not create or edit records in past</h4></div>} />
 			</div>
 		);
 	}	

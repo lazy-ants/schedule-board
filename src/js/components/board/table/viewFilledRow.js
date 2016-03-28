@@ -31,7 +31,7 @@ var ViewFilledRow =  React.createClass({
 							className="glyphicon glyphicon-pencil" 
 							role="button" 
 							indexKey={this.props.indexKey} 
-							onClick={this.props.onEditHandle.bind(null, this.props.indexKey)} >
+							onClick={this.props.onEditHandle.bind(null, this.props.indexKey, "editing")} >
 						</span>
 					</span>
 					<span className="use-centerd delete-icon">

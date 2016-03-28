@@ -5,7 +5,7 @@ var React = require('react');
 var EditingRow =  React.createClass({
 	getInitialState: function() {
 		return {
-			title: this.props.title
+			title: this.props.processType === "creating" ? "" : this.props.title,
 		};
 	},
 	onChangeInputHandler: function (e) {

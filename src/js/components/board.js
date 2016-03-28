@@ -1,15 +1,14 @@
 "use strict";
 
-require('../custom_modules/rc-calendar/assets/index.css');
+require('rc-calendar/assets/index.css');
 
 var React = require('react');
 var bindActionCreators = require('redux').bindActionCreators;
 var connect=require("react-redux").connect;
 
 var BoardHeader = require('./board/boardHeader.js');
-var AddRecordForm = require('./board/addRecordForm.js');
 var Table = require('./board/table.js');
-var Calendar = require('../custom_modules/rc-calendar');
+var Calendar = require('rc-calendar');
 var Actions = require('../actions/actions.js');
 
 function getFormatedDate (date) {
@@ -26,11 +25,13 @@ function getFormatedDate (date) {
 var Board =  React.createClass({
 	changeDate: function (e) {
 		this.setState({
+			chosenUnformatedDate: new Date(e.time),
 			chosenDate: getFormatedDate (new Date(e.time))
 		});
 	},
 	getInitialState: function () {
 		return {
+			chosenUnformatedDate: new Date(),
 			chosenDate: getFormatedDate (new Date())
 		}
 	},
@@ -47,13 +48,6 @@ var Board =  React.createClass({
 						<BoardHeader 
 							chosenDate={this.state.chosenDate.toString()} />
 
-						<AddRecordForm 
-							dayHourRecords={dayHourRecords} 
-							chosenDate={this.state.chosenDate} 
-							time=""
-							title=""
-							addRecordAction={actions.addRecord} />
-
 					</div>
 				</div>
 				<div className="row">
@@ -69,7 +63,9 @@ var Board =  React.createClass({
 
 						<Table 
 							dayHourRecords={dayHourRecords}
+							chosenUnformatedDate={this.state.chosenUnformatedDate}
 							chosenDate={this.state.chosenDate}
+							addRecordAction={actions.addRecord} 
 							editRecordAction={actions.editRecord}
 							deleteRecordAction={actions.deleteRecord} />
 
