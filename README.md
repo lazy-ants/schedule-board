@@ -1,5 +1,7 @@
 # Schedule-Board on React with Webpack
 
+Demo: https://schedule-board-reactjs.herokuapp.com
+
 This is first React.js base prototype of our free tool *schedule board* for diferent organizations to plan loading per day/time, for instance *swimming pool* schedule:
 
 * check online what time is free or taked
